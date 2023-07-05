@@ -1,0 +1,342 @@
+@use "sass:color";
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Open+Sans&family=Roboto+Condensed:wght@700&family=Roboto:wght@100&display=swap');
+
+$header-color-1: rgb(55, 55, 55);
+$content-color-1: rgb(141, 169, 196);
+$content-color-alt: #8DA9C4;
+$navbar-color-1: RGB(75, 75, 94);
+$card-color-1: RGB(241, 241, 254);
+$home-color-1: RGB(250, 250, 200);
+$container-color-1: RGB(250, 200, 200);
+$container-color-2: RGB(200, 250, 200);
+$star-color-1: RGB(250, 220, 60);
+
+$header-font-1: 'Roboto Condensed', sans-serif;
+$header-font-2: 'Roboto', sans-serif;
+
+$paragraph-font-1: 'Open Sans', sans-serif;
+$paragraph-font-2: 'Lato', sans-serif;
+
+$box-shadow-1: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+$gradient-1: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/balloon-3.jpg");
+
+* {
+    font-family: $paragraph-font-2; // Fallback font
+    max-width: 100vw;
+}
+
+body {
+    display: grid; // Creates 4 rows for the header, nav, content, and footer
+    grid-template-rows: auto auto 1fr auto;
+    max-width: 100vw;
+}
+
+.secondary-header-text { // H2 font
+    font-family: $header-font-2;
+    text-align: center;
+}
+
+.header { // Adds a header with a background image
+    grid-row: 1/2;
+    height: 300px;
+    width: 100%;
+    background-color: $header-color-1;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-image: $gradient-1;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.heading-container { // Container for text in the header
+
+    width: auto;
+    text-align: center;
+
+    h1 {
+        font-family: $header-font-1;
+    }
+
+    h3 {
+        font-family: $header-font-2;
+    }
+}
+
+
+.icon { // Properties for SVG
+    transform: scale(2);
+    margin-right: 10px;
+}
+
+
+a {
+    color: white;
+}
+
+nav {
+    grid-row: 2/3;
+    background-color: $navbar-color-1;
+    width: 100%;
+
+    * {
+        color: white;
+    }
+}
+
+.content { // 5 rows for Home, Info, Gallery, Testimonials, Contacts
+    grid-row: 3/4;
+    background-color: $content-color-1;
+    display: grid;
+    grid-template-columns: auto;
+    row-gap: 50px;
+    grid-template-rows: repeat(5, auto);
+    width: 100%;
+    }
+
+    .home { // Container for "Home"
+        grid-row: 1/2;
+        width: 1000px;
+        padding: 20px;
+        background-color: $container-color-2;
+        margin-top: 50px;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 10px;
+
+        h2 {
+            font-weight: bold;
+        }
+
+        .card-1 {
+            padding: 20px;
+            background-color: white;
+            box-shadow: $box-shadow-1;
+
+            ul {
+                margin-left: auto;
+                margin-right: auto;
+                width: 90%;
+                text-align: center;
+
+                li {
+                    p {
+                        font-size: 18px;
+                    }
+                }
+            }
+        }
+    }
+
+    .container-1 { // Container for "Information".
+        grid-row: 2/3;
+        width: 900px;
+        display: grid; // Keep this
+        grid-template-columns: repeat(2, 1fr); // Remove or set to auto
+        grid-template-rows: 30px repeat(2, 1fr); // Set to auto 1fr. Place the header in row 1/2 and the container-fluid in 2/3;
+        column-gap: 20px; // Remove
+        row-gap: 20px;
+        padding: 20px;
+        background-color: white;
+        margin-top: 50px;
+        margin-left: auto;
+        margin-right: auto;
+
+        h2 {
+            grid-column: 1/3; // Remove
+            grid-row: 1/2;
+        }
+
+        @for $j from 1 through 4 { // Remove and replace with bootstrap cards/columns
+            .card-#{$j} {
+                grid-row: auto;
+                box-shadow: $box-shadow-1;
+                width: 1fr;
+                max-height: 370px;
+                padding: 20px;
+                border-radius: 5px;
+                background-color: $card-color-1;
+
+                h3 {
+                    text-align: center;
+                    margin-bottom: 10px;
+                    font-weight: bold;
+                }
+
+                p {
+                    font-size: 18px;
+                    line-height: 2;
+                }
+            }
+        }
+    }
+
+    .container-2 { // Container for "Gallery"
+
+        grid-row: 3/4;
+        height: auto;
+        background-color: white;
+        width: 900px;
+        padding: 20px;
+        margin-left: auto;
+        margin-right: auto;
+
+        .card-1 {
+            height: auto;
+            box-shadow: $box-shadow-1;
+            background-color: $card-color-1;
+            border-radius: 5px;
+            padding: 20px;
+        }
+    }
+
+    .container-3 { // Container for "Testimonials". Change either this or "Information" to bootstrap grid.
+        @extend .container-1; // This may cause problems when you change container-1.
+        grid-row: 4/5;
+
+        @for $j from 1 through 6 { // Iterates through 6 cards and applies properties to them
+            .card-#{$j} {
+                grid-row: auto;
+                box-shadow: $box-shadow-1;
+                width: 1fr;
+                max-height: 370px;
+                padding: 20px;
+                border-radius: 5px;
+                background-color: $card-color-1;
+                text-align: center;
+
+                h3 {
+                    text-align: center;
+                    margin-bottom: 10px;
+                    font-weight: normal;
+                    font-style: italic;
+                }
+
+                p {
+                    font-size: 18px;
+                    line-height: 2;
+                    text-align: left;
+                }
+            }
+        }
+    }
+
+    .container-4 { // Container for "Contacts"
+        @extend .home;
+        grid-row: 5/6;
+        width: 1000px;
+        background-color: white;
+        margin-bottom: 50px;
+
+        .card-1 {
+            background-color: $card-color-1;
+        }
+    }
+
+.footer { // Footer
+    @extend .header;
+    grid-row: 4/5 !important;
+    height: 100px;
+    background-image: none;
+    width: 100%;
+    display: block;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+}
+
+.container-fluid { // Footer container for text
+
+    p {
+        font-family: $paragraph-font-1;
+    }
+
+    a {
+        text-decoration: none;
+        color: black;
+    }
+}
+
+#balloon-icon {
+    height: 25px;
+    width: 25px;
+}
+
+@media screen and (max-width: 1200px) {
+
+    .home {
+        width: 800px !important;
+    }
+
+    .container-1 { // Remove this
+        width: 600px !important;
+        grid-template-rows: 30px repeat(4, 1fr);
+        grid-template-columns: 1fr;
+
+        @for $j from 1 through 4 {
+            .card-#{$j} {
+                grid-row: auto;
+                box-shadow: $box-shadow-1;
+                grid-column: 1/2;
+                grid-row-start: 1 + $j;
+                grid-row-end: 2 + $j;
+
+                p {
+                    font-size: 16px;
+                    line-height: 1.2;
+                }
+            }
+        }
+
+
+        h2 {
+            grid-column: 1/2;
+        }
+    }
+
+    .container-2 {
+        height: auto;
+    }
+
+    .container-3 {
+        grid-template-rows: 70px repeat(6, 1fr);
+
+        @for $j from 1 through 6 {
+            .card-#{$j} {
+
+                p {
+                    font-size: 18px;
+                    line-height: 2;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .home {
+        width: 700px !important;
+    }
+
+    .container-text-m {
+        font-size: 16px !important;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .home {
+        width: 90% !important;
+    }
+
+    @for $i from 1 through 4 {
+        .container-#{$i} {
+            width: 90% !important;
+        }
+    }
+}
